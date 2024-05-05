@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Car;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class OrderIndexRequest extends FormRequest
 {
@@ -25,7 +27,7 @@ class OrderIndexRequest extends FormRequest
             'user_id' => 'integer',
             'car_id' => 'integer',
             'user_name' => 'string',
-            'car_brand' => 'string'
+            'car_brand' => ['string',Rule::in(array_keys(Car::CAR_BRANDS))]
         ];
     }
 }

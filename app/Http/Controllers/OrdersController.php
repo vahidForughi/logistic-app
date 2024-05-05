@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderIndexRequest;
 use App\Http\Requests\OrderStoreRequest;
+use App\Models\Car;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,7 @@ class OrdersController extends Controller
 
         if ($request->car_brand)
             $orders = $orders->whereHas('car', function($query) use ($request) {
-                return $query->whereBrand($request->car_brand);
+                return $query->whereBrand(Car::CAR_BRANDS[$request->car_brand]);
             });
 
         $orders = $orders->paginate();
