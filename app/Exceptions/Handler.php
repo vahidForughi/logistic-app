@@ -2,8 +2,12 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -39,6 +43,22 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
+        if ($e instanceof AuthenticationException) {
+            return response()->jsonError('Authentication Exception', 403);
+        }
+
+        if ($e instanceof AuthorizationException) {
+            return response()->jsonError('Authorization Exception', 403);
+        }
+
+        if ($e instanceof HttpException) {
+            return response()->jsonError($e->getMessage(), 404);
+        }
+
+        if ($e instanceof ModelNotFoundException) {
+            return response()->jsonError($e->getMessage(), 404);
+        }
+
         if ($e instanceof ValidationException) {
             return response()->jsonError($e->errors(), 401);
         }

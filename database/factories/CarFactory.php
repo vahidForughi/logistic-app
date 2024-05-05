@@ -24,7 +24,7 @@ class CarFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
+            'model' => fake()->name(),
             'brand' => fake()->numberBetween(1,3),
         ];
     }
