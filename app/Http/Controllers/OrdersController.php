@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderIndexRequest;
 use App\Http\Requests\OrderStoreRequest;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -11,9 +12,29 @@ class OrdersController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(OrderIndexRequest $request)
     {
-        return response()->jsonSuccess(Order::all());
+        $orders = new Order;
+
+        if ($request->user_id)
+            $orders = $orders->whereUserId(intVal($request->user_id));
+
+        if ($request->user_name)
+            $orders = $orders->whereHas('user', function($query) use ($request) {
+               return $query->whereName($request->user_name);
+            });
+
+        if ($request->car_id)
+            $orders = $orders->whereCarId(intVal($request->car_id));
+
+        if ($request->car_brand)
+            $orders = $orders->whereHas('car', function($query) use ($request) {
+                return $query->whereBrand($request->car_brand);
+            });
+
+        $orders = $orders->paginate();
+
+        return response()->jsonSuccess($orders);
     }
 
     /**
