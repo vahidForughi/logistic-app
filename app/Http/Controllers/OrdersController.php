@@ -14,7 +14,7 @@ class OrdersController extends Controller
      */
     public function index(OrderIndexRequest $request)
     {
-        $orders = new Order;
+        $orders = Order::with('user','car');
 
         if ($request->user_id)
             $orders = $orders->whereUserId(intVal($request->user_id));
@@ -53,24 +53,34 @@ class OrdersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Order $order)
     {
-        return response()->jsonSuccess(Order::findOrFail($id));
+        return response()->jsonSuccess($order);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Order $order)
     {
-        //
+        if ($request->user_id)
+            $order->user_id = $request->user_id;
+
+        if ($request->car_id)
+            $order->car_id = $request->car_id;
+
+        $order->save();
+
+        return response()->jsonSuccess(true);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Order $order)
     {
-        //
+        $order->delete();
+
+        return response()->jsonSuccess(true);
     }
 }
