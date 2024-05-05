@@ -23,7 +23,9 @@ class OrderIndexRequest extends FormRequest
     {
         return [
             'user_id' => 'integer',
-            'car_id' => 'integer'
+            'car_id' => 'integer',
+            'user_name' => 'string',
+            'car_brand' => 'string'
         ];
     }
 }
