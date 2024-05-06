@@ -26,16 +26,16 @@ class AppServiceProvider extends ServiceProvider
                 'status' => $status,
                 'data' => $data,
                 'message' => ''
-            ]);
+            ], $status);
         });
 
         Response::macro('jsonError', function ($errors, $status = 200, $message = '') {
             return Response::make([
-                'success' => true,
+                'success' => false,
                 'status' => $status,
                 'errors' => $errors,
                 'message' => ''
-            ]);
+            ], $status);
         });
     }
 }
