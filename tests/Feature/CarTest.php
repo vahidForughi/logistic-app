@@ -84,7 +84,7 @@ class CarTest extends TestCase
 
         $car = $this->storeCar($payload)->getOriginalContent()['data'];
 
-        $response = $this->json('get', "/api/cars/$car->id");
+        $response = $this->getCar($car->id);
 
         $response
             ->assertStatus(200)

@@ -84,7 +84,7 @@ class UserTest extends TestCase
 
         $user = $this->storeUser($payload)->getOriginalContent()['data'];
 
-        $response = $this->json('get', "/api/users/$user->id");
+        $response = $this->getUser($user->id);
 
         $response
             ->assertStatus(200)
