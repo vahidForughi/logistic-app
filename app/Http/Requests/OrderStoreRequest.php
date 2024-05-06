@@ -22,8 +22,8 @@ class OrderStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|integer|exists:users,id',
-            'car_id' => 'required|integer|exists:cars,id'
+            'user_id' => 'required|string|exists:users,id',
+            'car_id' => 'required|string|exists:cars,id'
         ];
     }
 }

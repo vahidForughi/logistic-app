@@ -24,8 +24,8 @@ class OrderIndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'integer',
-            'car_id' => 'integer',
+            'user_id' => 'string',
+            'car_id' => 'string',
             'user_name' => 'string',
             'car_brand' => ['string',Rule::in(array_keys(Car::CAR_BRANDS))]
         ];

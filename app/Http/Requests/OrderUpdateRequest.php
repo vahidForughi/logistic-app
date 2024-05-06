@@ -22,8 +22,8 @@ class OrderUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'integer|exists:users,id',
-            'car_id' => 'integer|exists:cars,id'
+            'user_id' => 'string|exists:users,id',
+            'car_id' => 'string|exists:cars,id'
         ];
     }
 }
