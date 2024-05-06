@@ -17,6 +17,16 @@ class UserService
         return $this->userService->getAll();
     }
 
+    public function get(int $num): User
+    {
+        return $this->userService->get($num);
+    }
+
+    public function first(): User
+    {
+        return $this->userService->first();
+    }
+
     public function findById(string $id): User
     {
         return $this->userService->findById($id);

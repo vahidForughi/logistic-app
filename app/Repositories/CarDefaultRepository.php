@@ -12,6 +12,16 @@ class CarDefaultRepository implements CarRepositoryInterface
         return Car::paginate()->toArray();
     }
 
+    public function get(int $num): Car
+    {
+        return Car::skip($num)->take(1)->first();
+    }
+
+    public function first(): Car
+    {
+        return Car::firstOrFail();
+    }
+
     public function findById(string $id): Car
     {
         return Car::findOrFail($id);

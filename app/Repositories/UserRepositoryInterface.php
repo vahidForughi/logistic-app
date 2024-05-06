@@ -7,6 +7,8 @@ use App\Models\User;
 interface UserRepositoryInterface
 {
     public function getAll(): array;
+    public function get(int $num): User;
+    public function first(): User;
     public function findById(string $id): User;
     public function store(array $data): User;
     public function update(string $id, array $data): void;

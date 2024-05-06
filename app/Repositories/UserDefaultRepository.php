@@ -12,6 +12,16 @@ class UserDefaultRepository implements UserRepositoryInterface
         return User::paginate()->toArray();
     }
 
+    public function get(int $num): User
+    {
+        return User::skip($num)->take(1)->first();
+    }
+
+    public function first(): User
+    {
+        return User::firstOrFail();
+    }
+
     public function findById(string $id): User
     {
         return User::findOrFail($id);

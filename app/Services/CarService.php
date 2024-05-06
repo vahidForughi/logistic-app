@@ -17,6 +17,16 @@ class CarService
         return $this->carService->getAll();
     }
 
+    public function get(int $num): Car
+    {
+        return $this->carService->get($num);
+    }
+
+    public function first(): Car
+    {
+        return $this->carService->first();
+    }
+
     public function findById(string $id): Car
     {
         return $this->carService->findById($id);
